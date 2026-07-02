@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>做壁 - 把重要的话，刻在屏幕上</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; color: #e0e0e0; background: #0f0f1a; line-height: 1.6; overflow-x: hidden; }
+.hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; background: linear-gradient(135deg, #0f0f1a 0%, #1a0a3e 50%, #0f0f1a 100%); position: relative; }
+.hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 50% 0%, rgba(100,60,200,0.15) 0%, transparent 60%); pointer-events: none; }
+.hero h1 { font-size: clamp(48px, 10vw, 96px); font-weight: 800; background: linear-gradient(135deg, #a78bfa, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -2px; margin-bottom: 16px; position: relative; }
+.hero .subtitle { font-size: clamp(18px, 3vw, 28px); color: #94a3b8; margin-bottom: 32px; font-weight: 300; }
+.hero .tagline { font-size: clamp(14px, 2vw, 18px); color: #64748b; margin-bottom: 48px; max-width: 600px; }
+.btn { display: inline-block; padding: 14px 40px; border-radius: 12px; font-size: 16px; font-weight: 600; text-decoration: none; transition: all 0.3s; cursor: pointer; }
+.btn-primary { background: linear-gradient(135deg, #7c3aed, #3b82f6); color: #fff; box-shadow: 0 4px 20px rgba(124,58,237,0.3); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(124,58,237,0.5); }
+.btn-outline { border: 1px solid #334155; color: #94a3b8; margin-left: 12px; }
+.btn-outline:hover { border-color: #7c3aed; color: #a78bfa; }
+.mockup { margin-top: 60px; max-width: 280px; width: 100%; border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+.section { padding: 80px 20px; max-width: 1100px; margin: 0 auto; }
+.section-title { font-size: clamp(28px, 4vw, 40px); font-weight: 700; text-align: center; margin-bottom: 12px; }
+.section-subtitle { text-align: center; color: #64748b; margin-bottom: 60px; font-size: 16px; }
+.features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.feature { background: linear-gradient(135deg, #1a1a2e, #16213e); border: 1px solid #1e293b; border-radius: 16px; padding: 32px; transition: all 0.3s; }
+.feature:hover { border-color: #7c3aed; transform: translateY(-4px); box-shadow: 0 12px 40px rgba(124,58,237,0.15); }
+.feature .icon { font-size: 32px; margin-bottom: 16px; }
+.feature h3 { font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+.feature p { color: #94a3b8; font-size: 14px; line-height: 1.7; }
+.effects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
+.effect-card { background: #1a1a2e; border: 1px solid #1e293b; border-radius: 12px; padding: 24px; text-align: center; transition: all 0.3s; }
+.effect-card:hover { border-color: #7c3aed; }
+.effect-card .preview { width: 100%; height: 80px; border-radius: 8px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; }
+.effect-card h4 { font-size: 14px; color: #e0e0e0; }
+.effect-card p { font-size: 12px; color: #64748b; margin-top: 4px; }
+.scenes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.scene { background: #1a1a2e; border: 1px solid #1e293b; border-radius: 12px; padding: 28px; text-align: center; }
+.scene .emoji { font-size: 36px; margin-bottom: 12px; }
+.scene h4 { font-size: 16px; margin-bottom: 8px; }
+.scene p { font-size: 13px; color: #64748b; }
+.permissions { background: #1a1a2e; border: 1px solid #1e293b; border-radius: 16px; padding: 40px; }
+.permissions h3 { margin-bottom: 20px; font-size: 20px; }
+.permissions ul { list-style: none; }
+.permissions li { padding: 8px 0; border-bottom: 1px solid #1e293b; display: flex; justify-content: space-between; font-size: 14px; }
+.permissions li:last-child { border-bottom: none; }
+.permissions .perm-name { color: #a78bfa; font-weight: 500; }
+.permissions .perm-desc { color: #94a3b8; }
+.policy-links { text-align: center; padding: 40px 20px; border-top: 1px solid #1e293b; margin-top: 80px; }
+.policy-links a { color: #64748b; text-decoration: none; font-size: 14px; margin: 0 16px; }
+.policy-links a:hover { color: #a78bfa; }
+.footer { text-align: center; padding: 40px 20px; color: #475569; font-size: 13px; }
+@media (max-width: 768px) { .hero { min-height: auto; padding: 60px 20px; } .features { grid-template-columns: 1fr; } .btn-outline { margin-left: 0; margin-top: 12px; display: block; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>做壁</h1>
+  <p class="subtitle">把重要的话，刻在屏幕上</p>
+  <p class="tagline">极简文字壁纸工具 · 输入一句话，即刻生成专属壁纸</p>
+  <div>
+    <a href="#" class="btn btn-primary">下载 APK</a>
+    <a href="privacy.html" class="btn btn-outline">隐私政策</a>
+  </div>
+</div>
+
+<div class="section">
+  <h2 class="section-title">核心功能</h2>
+  <p class="section-subtitle">简单，直接，纯粹</p>
+  <div class="features">
+    <div class="feature">
+      <div class="icon">✨</div>
+      <h3>一键设壁</h3>
+      <p>输入文字，点「设为壁纸」，即刻生效。支持桌面和锁屏独立设置。</p>
+    </div>
+    <div class="feature">
+      <div class="icon">📏</div>
+      <h3>字体自适应</h3>
+      <p>自动二分查找最优字号，短句大号震撼，长句完整显示，保证全部文字刚好可见。</p>
+    </div>
+    <div class="feature">
+      <div class="icon">🎨</div>
+      <h3>高度自定义</h3>
+      <p>6种字体 · 11色文字 · 5种特效 · 8组渐变背景 · 57张内置壁纸 · 支持自定义照片</p>
+    </div>
+    <div class="feature">
+      <div class="icon">🔄</div>
+      <h3>自动更新</h3>
+      <p>开启后台服务，文字变化自动刷新壁纸，适合每日名言、TODO 提醒。</p>
+    </div>
+    <div class="feature">
+      <div class="icon">📅</div>
+      <h3>每日记录</h3>
+      <p>每天内容自动保存，支持前翻后翻查看历史，日历快速跳转。</p>
+    </div>
+    <div class="feature">
+      <div class="icon">🪟</div>
+      <h3>悬浮窗预览</h3>
+      <p>文字壁纸以小窗口悬浮，可拖拽移动、双指缩放，随时查看效果。</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2 class="section-title">文字特效</h2>
+  <p class="section-subtitle">让每一句话都更有表现力</p>
+  <div class="effects-grid">
+    <div class="effect-card">
+      <div class="preview" style="background: linear-gradient(135deg, #a78bfa, #60a5fa); color: #fff;">渐变</div>
+      <h4>渐变</h4>
+      <p>文字从上到下颜色过渡</p>
+    </div>
+    <div class="effect-card">
+      <div class="preview" style="background: #1e293b; color: #fff; box-shadow: inset 0 0 0 1px #334155;">阴影</div>
+      <h4>阴影</h4>
+      <p>立体投影效果</p>
+    </div>
+    <div class="effect-card">
+      <div class="preview" style="background: #0f172a; color: #22d3ee; text-shadow: 0 0 20px #22d3ee, 0 0 40px #22d3ee;">霓虹</div>
+      <h4>霓虹</h4>
+      <p>发光文字，三档强度</p>
+    </div>
+    <div class="effect-card">
+      <div class="preview" style="background: #1e293b; color: transparent; -webkit-text-stroke: 2px #f59e0b;">描边</div>
+      <h4>描边</h4>
+      <p>文字轮廓描边</p>
+    </div>
+    <div class="effect-card">
+      <div class="preview" style="background: #1e293b; color: #e0e0e0;">无</div>
+      <h4>纯色</h4>
+      <p>简洁干净</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2 class="section-title">使用场景</h2>
+  <p class="section-subtitle">锁屏即见，重要不忘记</p>
+  <div class="scenes">
+    <div class="scene">
+      <div class="emoji">📝</div>
+      <h4>个人备忘</h4>
+      <p>今天记得买牛奶——每次解锁都能看到</p>
+    </div>
+    <div class="scene">
+      <div class="emoji">👴</div>
+      <h4>老人关怀</h4>
+      <p>大字版壁纸，吃药提醒一目了然</p>
+    </div>
+    <div class="scene">
+      <div class="emoji">💪</div>
+      <h4>学习励志</h4>
+      <p>每天一句名言，刻在屏上</p>
+    </div>
+    <div class="scene">
+      <div class="emoji">💕</div>
+      <h4>情侣浪漫</h4>
+      <p>把 TA 的名字放在桌面</p>
+    </div>
+    <div class="scene">
+      <div class="emoji">🎤</div>
+      <h4>应援追星</h4>
+      <p>偶像的名字，亮在屏幕上</p>
+    </div>
+    <div class="scene">
+      <div class="emoji">🧘</div>
+      <h4>极简禅意</h4>
+      <p>一个字，就是一张壁纸</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2 class="section-title">隐私与权限</h2>
+  <p class="section-subtitle">不联网 · 无广告 · 不收集任何信息</p>
+  <div class="permissions">
+    <h3>权限用途说明</h3>
+    <ul>
+      <li><span class="perm-name">SET_WALLPAPER</span><span class="perm-desc">设置桌面和锁屏壁纸</span></li>
+      <li><span class="perm-name">FOREGROUND_SERVICE</span><span class="perm-desc">保持自动更新服务运行</span></li>
+      <li><span class="perm-name">POST_NOTIFICATIONS</span><span class="perm-desc">显示服务运行状态通知</span></li>
+      <li><span class="perm-name">CAMERA</span><span class="perm-desc">拍照作为壁纸背景</span></li>
+      <li><span class="perm-name">READ_MEDIA_IMAGES</span><span class="perm-desc">从相册选择背景图片</span></li>
+      <li><span class="perm-name">SYSTEM_ALERT_WINDOW</span><span class="perm-desc">显示悬浮窗预览</span></li>
+      <li><span class="perm-name">RECEIVE_BOOT_COMPLETED</span><span class="perm-desc">开机启动壁纸服务</span></li>
+    </ul>
+  </div>
+</div>
+
+<div class="section" style="text-align:center; padding-bottom: 40px;">
+  <h2 class="section-title">开始使用</h2>
+  <p class="section-subtitle">Android 8.0+ · 手机和平板均可</p>
+  <a href="#" class="btn btn-primary">下载 APK</a>
+  <p style="color: #475569; font-size: 13px; margin-top: 16px;">v1.1 · 44MB · 无需网络权限</p>
+</div>
+
+<div class="policy-links">
+  <a href="privacy.html">隐私政策</a>
+</div>
+
+<div class="footer">
+  <p>&copy; 2025 做壁 · Made with ♥</p>
+</div>
+
+</body>
+</html>
